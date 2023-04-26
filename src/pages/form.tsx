@@ -1,5 +1,9 @@
 import { ArrowBackIcon } from "@chakra-ui/icons"
 import { Flex, Text, Image, Input, Textarea, Button } from "@chakra-ui/react"
+import { OpenAI } from "langchain/llms/openai"
+import { RetrievalQAChain } from "langchain/chains"
+import { OpenAIEmbeddings } from "langchain/embeddings/openai"
+import { MemoryVectorStore } from "langchain/vectorstores/memory"
 import { useRouter } from "next/router"
 import { ReactElement, useContext, useMemo, useState } from "react"
 import NavbarLayout from "src/components/layout"
@@ -7,10 +11,12 @@ import { GlobalContext } from "src/contexts/GlobalContext"
 import { FormDataType } from "src/types"
 
 function Form() {
-    const { docs, chain } = useContext(GlobalContext)!
+    const { docs, setFilteredGrants } = useContext(GlobalContext)!
 
     const [formData, setFormData] = useState<FormDataType>({ title: '', details: '', tldr: '', funding: '' })
     const [isLoading, setIsLoading] = useState<boolean>(false)
+
+    const router = useRouter()
 
     const isDisabled = useMemo(() => {
         const { title, details, tldr, funding } = formData
@@ -19,22 +25,23 @@ function Form() {
 
     const filter = async () => {
         try {
+            if (!docs) return
             setIsLoading(true)
             console.log(formData)
-            console.log({ chain, docs })
-            const res = await chain.call({
-                input_documents: docs,
-                question: formData.details,
-            });
+            console.log({ docs, apiKey: process.env.OPENAI_KEY })
 
-            console.log(res)
+            const vectorStore = await MemoryVectorStore.fromDocuments(docs, new OpenAIEmbeddings({ openAIApiKey: process.env.OPENAI_KEY }));
+
+            const similarDocs = await vectorStore.similaritySearch(formData.details, 10)
+            setFilteredGrants(similarDocs.map((doc) => doc.metadata))
             setIsLoading(false)
+
+            router.push('/filtered_grants')
         } catch (e) {
+            console.error(e)
             setIsLoading(false)
         }
     }
-
-    const router = useRouter()
 
     return <Flex direction='column' align={'center'} w='100%'>
         <Flex mt={14} ml={6} w='100%' justify={'flex-start'}>

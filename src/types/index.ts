@@ -1,4 +1,3 @@
-import { StuffDocumentsChain } from "langchain/chains";
 import { Document } from "langchain/document";
 
 export type Data = {
@@ -20,5 +19,6 @@ export type FormDataType = {
 export type GlobalContextType = {
   grants: Data | undefined;
   docs: Document[] | undefined;
-  chain: StuffDocumentsChain;
+  filteredGrants: any[];
+  setFilteredGrants: (grants: any[]) => void;
 };

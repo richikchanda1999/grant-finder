@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  webpack(config) {
+  webpack: function(config, options) {
+    if(!options.isServer) {
+			config.resolve.fallback.fs = false
+		}
+
     config.experiments = {
       asyncWebAssembly: true,
       layers: true,
@@ -10,7 +14,7 @@ const nextConfig = {
     return config;
   },
   env: {
-    OPENAPI_KEY: process.env.OPENAPI_KEY
+    OPENAI_KEY: process.env.OPENAI_KEY
   }
 }
 
