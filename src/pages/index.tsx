@@ -1,7 +1,8 @@
-import { Button, Container, Image, Text, Flex, Grid, GridItem } from "@chakra-ui/react"
-import { ExternalLinkIcon, LinkIcon } from "@chakra-ui/icons"
-import { useEffect, useState } from "react"
+import { Button, Image, Text, Flex, Grid, GridItem } from "@chakra-ui/react"
+import { ExternalLinkIcon } from "@chakra-ui/icons"
+import { ReactElement, useEffect, useState } from "react"
 import { Data } from "src/types"
+import NavbarLayout from "src/components/navbar"
 
 function Home() {
   const [grants, setGrants] = useState<Data>()
@@ -16,7 +17,7 @@ function Home() {
   }, [])
 
   return (
-    <Container bg='#0E0F0C' maxW={'100vw'} h='100%' centerContent px={10}>
+    <Flex direction='column' align={'center'}>
       <Image src='/solana-header.svg' />
       <Text mt={14} bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>Don't miss out on</Text>
       <Text mt={1} bg='linear-gradient(90.55deg, #F7C477 0%, #F89272 53.88%, #ED7A7A 100%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>"Free Money"</Text>
@@ -66,8 +67,16 @@ function Home() {
           }
         </Grid>
       </Flex>
-    </Container>
+    </Flex>
   )
+}
+
+Home.getLayout = function(page: ReactElement) {
+	return (
+		<NavbarLayout>
+			{page}
+		</NavbarLayout>
+	)
 }
 
 export default Home
