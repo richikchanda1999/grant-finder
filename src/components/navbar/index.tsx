@@ -1,12 +1,7 @@
-import { Container } from "@chakra-ui/react"
-import { ReactNode } from "react"
+import { Flex, Image } from "@chakra-ui/react"
 
-interface Props {
-    children: ReactNode
+function Navbar() {
+    return <Flex w='100%' justify={'flex-start'} py={4}><Image src='/solana-logo.svg' /></Flex>
 }
 
-function NavbarLayout({ children }: Props) {
-    return <Container bg='#0E0F0C' maxW={'100vw'} h='100%' centerContent px={10}>{children}</Container>
-}
-
-export default NavbarLayout
+export default Navbar

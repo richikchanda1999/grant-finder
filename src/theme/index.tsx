@@ -7,6 +7,14 @@ const theme = extendTheme({
                 color: 'white'
             }
         },
+        Input: {
+            baseStyle: {
+                color: 'white',
+                fontWeight: '700',
+                fontSize: '24px',
+                lineHeight: '32px',
+            },
+        },
         Button: {
             variants: {
                 gradient: {

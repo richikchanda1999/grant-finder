@@ -2,7 +2,7 @@ import { Button, Image, Text, Flex, Grid, GridItem } from "@chakra-ui/react"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
 import { ReactElement, useEffect, useState } from "react"
 import { Data } from "src/types"
-import NavbarLayout from "src/components/navbar"
+import NavbarLayout from "src/components/layout"
 
 function Home() {
   const [grants, setGrants] = useState<Data>()
