@@ -1,20 +1,14 @@
 import { Button, Image, Text, Flex, Grid, GridItem } from "@chakra-ui/react"
 import { ExternalLinkIcon } from "@chakra-ui/icons"
-import { ReactElement, useEffect, useState } from "react"
+import { ReactElement, useContext, useEffect, useState } from "react"
 import { Data } from "src/types"
 import NavbarLayout from "src/components/layout"
+import { GlobalContext } from "src/contexts/GlobalContext"
+import { useRouter } from "next/router"
 
 function Home() {
-  const [grants, setGrants] = useState<Data>()
-
-  useEffect(() => {
-    fetch('/api/grants').then(res => { console.log(res); return res.json() }).then(data => {
-      console.log(data)
-      if (data.data) {
-        setGrants(data.data)
-      }
-    })
-  }, [])
+  const { grants } = useContext(GlobalContext)!
+  const router = useRouter()
 
   return (
     <Flex direction='column' align={'center'}>
@@ -27,7 +21,9 @@ function Home() {
         <Text as='span' fontSize={'18px'}>dollar idea</Text>
       </Flex>
 
-      <Button mt={8}>
+      <Button mt={8} onClick={() => {
+        router.push('/form')
+      }}>
         What are you Building?
       </Button>
 

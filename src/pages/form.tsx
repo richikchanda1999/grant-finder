@@ -1,15 +1,36 @@
 import { Flex, Text, Image, Input, Textarea, Button } from "@chakra-ui/react"
-import { ReactElement, useMemo, useState } from "react"
+import { ReactElement, useContext, useMemo, useState } from "react"
 import NavbarLayout from "src/components/layout"
+import { GlobalContext } from "src/contexts/GlobalContext"
 import { FormDataType } from "src/types"
 
 function Form() {
+    const { docs, chain } = useContext(GlobalContext)!
+
     const [formData, setFormData] = useState<FormDataType>({ title: '', details: '', tldr: '', funding: '' })
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const isDisabled = useMemo(() => {
         const { title, details, tldr, funding } = formData
         return (title === '' || details === '' || tldr === '' || funding === '')
     }, [formData])
+
+    const filter = async () => {
+        try {
+            setIsLoading(true)
+            console.log(formData)
+            console.log({ chain, docs })
+            const res = await chain.call({
+                input_documents: docs,
+                question: formData.details,
+            });
+
+            console.log(res)
+            setIsLoading(false)
+        } catch (e) {
+            setIsLoading(false)
+        }
+    }
 
     return <Flex direction='column' align={'center'} w='100%'>
         <Text mt={14} bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>What are you building?</Text>
@@ -80,7 +101,7 @@ function Form() {
             </Flex>
 
             <Flex mt={8} justify={'center'} w='100%'>
-                <Button isDisabled={isDisabled} px={8} h='72px' fontSize={'24px'} lineHeight={'36px'} fontWeight={'900'} rightIcon={<Image boxSize='24px' src='/subtract.svg' />}>
+                <Button isDisabled={isDisabled} px={8} h='72px' fontSize={'24px'} lineHeight={'36px'} fontWeight={'900'} rightIcon={<Image boxSize='24px' src='/subtract.svg' />} onClick={filter}>
                     Explore grant programs
                 </Button>
             </Flex>

@@ -1,3 +1,6 @@
+import { StuffDocumentsChain } from "langchain/chains";
+import { Document } from "langchain/document";
+
 export type Data = {
   blockworkGrants: any[];
 };
@@ -8,8 +11,14 @@ export type ResponseType = {
 };
 
 export type FormDataType = {
-  title: string
-  tldr: string
-  details: string
-  funding: string
-}
+  title: string;
+  tldr: string;
+  details: string;
+  funding: string;
+};
+
+export type GlobalContextType = {
+  grants: Data | undefined;
+  docs: Document[] | undefined;
+  chain: StuffDocumentsChain;
+};
