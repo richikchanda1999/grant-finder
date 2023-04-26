@@ -1,4 +1,6 @@
+import { ArrowBackIcon } from "@chakra-ui/icons"
 import { Flex, Text, Image, Input, Textarea, Button } from "@chakra-ui/react"
+import { useRouter } from "next/router"
 import { ReactElement, useContext, useMemo, useState } from "react"
 import NavbarLayout from "src/components/layout"
 import { GlobalContext } from "src/contexts/GlobalContext"
@@ -32,8 +34,15 @@ function Form() {
         }
     }
 
+    const router = useRouter()
+
     return <Flex direction='column' align={'center'} w='100%'>
-        <Text mt={14} bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>What are you building?</Text>
+        <Flex mt={14} ml={6} w='100%' justify={'flex-start'}>
+            <Button height={'48px'} fontSize='18px' lineHeight={'24px'} fontWeight={'700'} leftIcon={<ArrowBackIcon color='white' boxSize='18px' />} onClick={() => {
+                router.back()
+            }}>Back</Button>
+        </Flex>
+        <Text bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>What are you building?</Text>
         <Text mt={2} fontSize='18px' lineHeight={'24px'}>Write your proposal, and find grant programs that are a good fit for your project</Text>
         <Flex mt={14} borderRadius={'12px'} bg='linear-gradient(119.55deg, #201E21 0%, #111112 99.94%)' direction={'column'} h='100%' w='80%' p={16}>
             <Flex w='100%' align='flex-start'>
@@ -101,7 +110,7 @@ function Form() {
             </Flex>
 
             <Flex mt={8} justify={'center'} w='100%'>
-                <Button isDisabled={isDisabled} px={8} h='72px' fontSize={'24px'} lineHeight={'36px'} fontWeight={'900'} rightIcon={<Image boxSize='24px' src='/subtract.svg' />} onClick={filter}>
+                <Button isDisabled={isDisabled} isLoading={isLoading} px={8} h='72px' fontSize={'24px'} lineHeight={'36px'} fontWeight={'900'} rightIcon={<Image boxSize='24px' src='/subtract.svg' />} onClick={filter}>
                     Explore grant programs
                 </Button>
             </Flex>
