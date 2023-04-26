@@ -13,8 +13,8 @@ function Home() {
   return (
     <Flex direction='column' align={'center'}>
       <Image src='/solana-header.svg' />
-      <Text mt={14} bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>Don't miss out on</Text>
-      <Text mt={1} bg='linear-gradient(90.55deg, #F7C477 0%, #F89272 53.88%, #ED7A7A 100%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>"Free Money"</Text>
+      <Text mt={14} bg='linear-gradient(90.25deg, #B8B5BF 0%, #FFFFFF 49.96%, #B8B5BF 99.91%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>Don&apos;t miss out on</Text>
+      <Text mt={1} bg='linear-gradient(90.55deg, #F7C477 0%, #F89272 53.88%, #ED7A7A 100%)' backgroundClip='text' fontSize='48px' lineHeight={'56px'} fontWeight={'900'}>&quot;Free Money&quot;</Text>
       <Flex mt={2} gap={1}>
         <Text as='span' fontSize={'18px'}>Find the best grant programs to fund for your</Text>
         <Text as='span' fontSize={'18px'} fontWeight={'700'}>billion</Text>
